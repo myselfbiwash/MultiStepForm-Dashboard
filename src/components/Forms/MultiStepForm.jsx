@@ -24,17 +24,25 @@ const steps = [
 
 const MultiStepForm = () => {
   const [step, setStep] = useState(1);
-  const { activeStep, stepCount } = useSteps({
-    initialStep: step - 1,
+  const { activeStep, setActiveStep } = useSteps({
+    initialStep: step-1,
     count: steps.length,
   });
 
   const handleNextStep = () => {
-    setStep((prevStep) => Math.min(prevStep + 1, steps.length));
+    setStep((prevStep) => prevStep + 1);
+    setActiveStep(step)
+    // setStep((prevStep) => Math.min(prevStep + 1, steps.length));
   };
 
   const handlePreviousStep = () => {
-    setStep((prevStep) => Math.max(prevStep - 1, 1));
+    setStep((prevStep) => {
+      console.log("Prev:",prevStep)
+      setActiveStep(prevStep-2)
+      return prevStep - 1
+    }
+    );
+    // setStep((prevStep) => Math.max(prevStep - 1, 1));
   };
 
   const renderFormStep = () => {
@@ -57,14 +65,8 @@ const MultiStepForm = () => {
           {steps.map((step, index) => (
             <Step key={index}>
               <StepIndicator>
-                <StepStatus
-                  complete={
-                    index === 0 && step <= activeStep ? (
-                      <StepIcon boxSize={4} color="green.500">
-                        &#10004;
-                      </StepIcon>
-                    ) : null
-                  }
+              <StepStatus
+                  complete={<StepIcon color="white.400" />}
                   incomplete={<StepNumber />}
                   active={<StepNumber />}
                 />
