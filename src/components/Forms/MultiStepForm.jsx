@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChakraProvider, Box, Button, Stack } from '@chakra-ui/react';
 import {
   Step,
@@ -15,11 +15,13 @@ import {
 import Form1 from './Form1';
 import Form2 from './Form2';
 import Form3 from './Form3';
+import Form4 from './Form4';
 
 const steps = [
   { title: 'First', description: 'Contact Info' },
   { title: 'Second', description: 'Date & Time' },
   { title: 'Third', description: 'Select Rooms' },
+  { title: 'Fourth', description: 'Confirm' },
 ];
 
 const MultiStepForm = () => {
@@ -29,16 +31,27 @@ const MultiStepForm = () => {
     count: steps.length,
   });
 
+  
+
   const handleNextStep = () => {
+   
+
+
     setStep((prevStep) => prevStep + 1);
-    setActiveStep(step)
-    // setStep((prevStep) => Math.min(prevStep + 1, steps.length));
+    setActiveStep(step);
+   console.log("Active Step:",activeStep)
+   console.log("Step:",step)
+    //setStep((prevStep) => Math.min(prevStep + 1, steps.length));
   };
+ 
 
   const handlePreviousStep = () => {
     setStep((prevStep) => {
-      console.log("Prev:",prevStep)
+      console.log("Prev Step is:",prevStep)
       setActiveStep(prevStep-2)
+      //active step is 1 less than step. if current step is 4 and we press previous button then step value should be 3 and active step should be 2. So prevStep-2 
+      console.log("Prev:",activeStep)
+
       return prevStep - 1
     }
     );
@@ -53,6 +66,8 @@ const MultiStepForm = () => {
         return <Form2 />;
       case 3:
         return <Form3 />;
+      case 4:
+        return <Form4 />;
       default:
         return null;
     }

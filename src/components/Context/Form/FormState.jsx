@@ -2,16 +2,11 @@ import React, { useState } from 'react'
 import  FormContext  from './FormContext'
 
 const FormState = (props) => {
-  const [name, setName] = useState('Biwash');
-  const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [address, setAddress] = useState('');
-  const [age, setAge] = useState('');
-  const [grades, setGrades] = useState([]);
-  const [scores, setScores] = useState([]);
-  const [attendedCourse, setAttendedCourse] = useState('');
+ const [userData, setUserData] = useState([]);
+ const [finalData, setFinalData] = useState([]);
 
-  const state = { name, email, phoneNumber, address, age, grades, scores, attendedCourse, setName, setEmail, setPhoneNumber, setAddress, setAge, setGrades, setScores, setAttendedCourse };
+
+  const state = { userData, setUserData, finalData, setFinalData };
 
   return (
     <FormContext.Provider value={state}>
