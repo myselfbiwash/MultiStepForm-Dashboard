@@ -1,5 +1,4 @@
-import React from 'react'
-import { useContext } from 'react'
+import React, { useContext } from 'react'
 import FormContext from '../Context/Form/FormContext'
 
 const Form2 = () => {
@@ -7,6 +6,8 @@ const Form2 = () => {
   return (
     <div>
       Hello! My name is: {name}
+      name: {name} form 2
+
     </div>
   )
 }

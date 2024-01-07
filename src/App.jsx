@@ -14,7 +14,6 @@ function App() {
           <div className="App">
             <h1>Multi-Step Form</h1> 
           </div>
-          <Form2 />
           <MultiStepForm />
         </ChakraProvider>
       </FormState>

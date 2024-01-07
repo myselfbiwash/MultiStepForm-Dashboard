@@ -11,7 +11,7 @@ import {
   StepTitle,
   Stepper,
   useSteps,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
 import Form1 from './Form1';
 import Form2 from './Form2';
 import Form3 from './Form3';
@@ -24,19 +24,17 @@ const steps = [
 
 const MultiStepForm = () => {
   const [step, setStep] = useState(1);
-  const { activeStep } = useSteps({
-    index: step - 1,
+  const { activeStep, stepCount } = useSteps({
+    initialStep: step - 1,
     count: steps.length,
   });
 
   const handleNextStep = () => {
     setStep((prevStep) => Math.min(prevStep + 1, steps.length));
-    //ensures that the new value of step is at most steps.length.
   };
 
   const handlePreviousStep = () => {
     setStep((prevStep) => Math.max(prevStep - 1, 1));
-    //ensures that the new value of step is at least 1.
   };
 
   const renderFormStep = () => {
@@ -60,13 +58,19 @@ const MultiStepForm = () => {
             <Step key={index}>
               <StepIndicator>
                 <StepStatus
-                  complete={<StepIcon />}
+                  complete={
+                    index === 0 && step <= activeStep ? (
+                      <StepIcon boxSize={4} color="green.500">
+                        &#10004;
+                      </StepIcon>
+                    ) : null
+                  }
                   incomplete={<StepNumber />}
                   active={<StepNumber />}
                 />
               </StepIndicator>
 
-              <Box flexShrink='0'>
+              <Box flexShrink="0">
                 <StepTitle>{step.title}</StepTitle>
                 <StepDescription>{step.description}</StepDescription>
               </Box>
