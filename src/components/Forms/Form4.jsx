@@ -1,10 +1,15 @@
-import React from 'react'
-
+import { useState, useContext } from 'react';
+import { Box, Button, Stack, FormControl, FormLabel, Input } from '@chakra-ui/react';
+import FormContext from '../Context/Form/FormContext'
 const Form4 = () => {
+
+  const { userData,setUserData, finalData, setFinalData} = useContext(FormContext);
+
+
   return (
     <div>
-      I am form 4!
-    </div>
+
+     </div>
   )
 }
 

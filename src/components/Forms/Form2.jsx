@@ -1,13 +1,13 @@
-import React, { useContext } from 'react'
+import { useState, useContext } from 'react';
+import { Box, Button, Stack, FormControl, FormLabel, Input } from '@chakra-ui/react';
 import FormContext from '../Context/Form/FormContext'
 
 const Form2 = () => {
-    const { name, email, phoneNumber, address, age } = useContext(FormContext);
+    const { userData,setUserData} = useContext(FormContext);
   return (
     <div>
-      Hello! My name is: {name}
-      name: {name} form 2
-
+      
+{userData.dateOfBirth}
     </div>
   )
 }

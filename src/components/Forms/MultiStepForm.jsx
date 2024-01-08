@@ -19,9 +19,9 @@ import Form4 from './Form4';
 
 const steps = [
   { title: 'First', description: 'Contact Info' },
-  { title: 'Second', description: 'Date & Time' },
-  { title: 'Third', description: 'Select Rooms' },
-  { title: 'Fourth', description: 'Confirm' },
+  { title: 'Second', description: 'Educational Details' },
+  { title: 'Third', description: 'Projects' },
+  { title: 'Fourth', description: 'Sports' },
 ];
 
 const MultiStepForm = () => {

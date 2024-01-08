@@ -10,14 +10,20 @@ const Form1 = () => {
     const [dob, setDOB] = useState(new Date());
     const [age, setAge] = useState('');
 
-    const handleDOBChange = (date) => {
+  const handleDOBChange = (date) => {
+    if (date instanceof Date && !isNaN(date)) {
         setDOB(date);
         calculateAge(date);
         setUserData({
             ...userData,
             dateOfBirth: date.toISOString(), // You can format the date as needed
-          });
-    };
+        });
+    } else {
+        // Handle invalid date
+        console.error("Invalid date");
+    }
+};
+
 
     const calculateAge = (birthdate) => {
         const currentDate = new Date();
@@ -49,14 +55,12 @@ const Form1 = () => {
         return emailRegex.test(email);
     };
     const fieldStyles = {
-        borderColor: 'blue.500',
-        border: '1px solid',
+        borderColor: 'blue.100',
+        border: '2px solid',
         size: 'md',
         height: '40px',
         width: '416px',
-      };
-
-
+    };
 
     return (
         <Box>
@@ -64,46 +68,49 @@ const Form1 = () => {
                 <FormLabel>Your name</FormLabel>
                 <Input
                     type="text"
-                    value={userData['name'] || ''}
-                    onChange={(e) => setUserData({ ...userData, name: e.target.value })}
+                    defaultValue={userData['name'] || ''}
+                    //onChange={(e) => setUserData({ ...userData, name: e.target.value })}
+                    onBlur={(e) => setUserData({ ...userData, name: e.target.value })}
                     variant="outline"
                     colorScheme="teal"
                     margin="normal"
                     size="md"
                     style={fieldStyles}
-                   
-
                 />
             </FormControl>
             <FormControl id="email" isRequired >
                 <FormLabel>Email</FormLabel>
                 <Input
                     type="email"
-                    value={userData['email'] || ''}
-                    onChange={(e) => setUserData({ ...userData, email: e.target.value })}
-                    onBlur={() => validateEmail(userData['email'])}
+                   
+                    defaultValue={userData['email'] || ''}
+                    onBlur={(e) => {
+                      validateEmail(e.target.value);
+                      setUserData({ ...userData, email: e.target.value });
+                    }}
                     isInvalid={!isValidEmail(userData['email'])}
                     variant="outline"
                     colorScheme="teal"
                     margin="normal"
                     size="md"
-                    style={fieldStyles}
+                    borderColor="blue.500"
+                    border="1px solid"
+                  
                    
-
+                    // style={fieldStyles}
                 />
             </FormControl>
             <FormControl id="phoneNumber" isRequired >
                 <FormLabel>Phone Number</FormLabel>
                 <Input
                     type="number"
-                    value={userData['phoneNumber'] || ''}
-                    onChange={(e) => setUserData({ ...userData, phoneNumber: e.target.value })}
+                    defaultValue={userData['phoneNumber'] || ''}
+                    onBlur={(e) => setUserData({ ...userData, phoneNumber: e.target.value })}
                     variant="outline"
                     colorScheme="teal"
                     margin="normal"
                     size="md"
                     style={fieldStyles}
-                   
                 />
             </FormControl>
             <FormControl id="dob" isRequired >
@@ -118,8 +125,8 @@ const Form1 = () => {
                     yearDropdownItemNumber={100}
                     className="form-control"
                     style={fieldStyles}
-                    
                 />
+                <Box>you are: {age}</Box>
             </FormControl>
         </Box>
     );
