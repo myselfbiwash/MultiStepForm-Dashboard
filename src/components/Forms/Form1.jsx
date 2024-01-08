@@ -63,7 +63,7 @@ const Form1 = () => {
     };
 
     return (
-        <Box>
+        <div style={{ justifyContent: 'center', display: 'flex', flexDirection: 'column',backgroundColor:'lightblue',padding:'20px' }}>
             <FormControl id="name" isRequired >
                 <FormLabel>Your name</FormLabel>
                 <Input
@@ -74,7 +74,6 @@ const Form1 = () => {
                     variant="outline"
                     colorScheme="teal"
                     margin="normal"
-                    size="md"
                     style={fieldStyles}
                 />
             </FormControl>
@@ -92,9 +91,9 @@ const Form1 = () => {
                     variant="outline"
                     colorScheme="teal"
                     margin="normal"
-                    size="md"
-                    borderColor="blue.500"
-                    border="1px solid"
+                    style={fieldStyles}
+                    //borderColor="blue.500"
+                    //border="1px solid"
                   
                    
                     // style={fieldStyles}
@@ -128,7 +127,7 @@ const Form1 = () => {
                 />
                 <Box>you are: {age}</Box>
             </FormControl>
-        </Box>
+        </div>
     );
 };
 

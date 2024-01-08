@@ -88,7 +88,7 @@ const MultiStepForm = () => {
 
   return (
     <ChakraProvider>
-      <Box maxW="md" mx="auto" mt={8} p={4}>
+      <Box maxW="full" mx="auto" mt="8" p="6">
         <Stepper index={activeStep}>
           {steps.map((step, index) => (
             <Step key={index}>
@@ -105,7 +105,8 @@ const MultiStepForm = () => {
                 <StepDescription>{step.description}</StepDescription>
               </Box>
 
-              <StepSeparator />
+              <StepSeparator  />
+              
             </Step>
           ))}
         </Stepper>
