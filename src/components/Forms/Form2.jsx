@@ -7,7 +7,6 @@ const Form2 = () => {
   return (
     <div>
       
-{userData.dateOfBirth}
     </div>
   )
 }

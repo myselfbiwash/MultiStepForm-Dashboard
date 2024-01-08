@@ -3,6 +3,7 @@ import FormContext from '../Context/Form/FormContext';
 
 const Dashboard = () => {
   const { finalData } = useContext(FormContext);
+  console.log("Final Data is:", finalData);
 
   const renderFinalData = () => {
     return Object.entries(finalData).map(([key, value]) => (

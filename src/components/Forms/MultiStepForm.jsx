@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
+import FormContext from '../Context/Form/FormContext';
 import { ChakraProvider, Box, Button, Stack } from '@chakra-ui/react';
 import {
   Step,
@@ -25,6 +26,8 @@ const steps = [
 ];
 
 const MultiStepForm = () => {
+  const { userData, setUserData, finalData, setFinalData, submitForm } = useContext(FormContext);
+
   const [step, setStep] = useState(1);
   const { activeStep, setActiveStep } = useSteps({
     initialStep: step-1,
@@ -58,6 +61,12 @@ const MultiStepForm = () => {
     // setStep((prevStep) => Math.max(prevStep - 1, 1));
   };
 
+  const handleSubmit = () => {
+    submitForm();
+    setStep(1);
+    setActiveStep(0);
+  };
+
   const renderFormStep = () => {
     switch (step) {
       case 1:
@@ -67,8 +76,12 @@ const MultiStepForm = () => {
       case 3:
         return <Form3 />;
       case 4:
-        return <Form4 />;
-      default:
+        return (
+          <>
+            <Form4 />
+            <Button colorScheme='blue' onClick={handleSubmit}>Submit</Button>
+          </>
+        );      default:
         return null;
     }
   };
