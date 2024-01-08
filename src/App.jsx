@@ -4,6 +4,7 @@ import FormState from './components/Context/Form/FormState';
 import './App.css'
 import Form2 from './components/Forms/Form2'
 import MultiStepForm from './components/Forms/MultiStepForm';
+import Dashboard from './components/Display/Dashboard';
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
             <h1>Multi-Step Form</h1> 
           </div>
           <MultiStepForm />
+          <Dashboard />
         </ChakraProvider>
       </FormState>
       {/* <div className="App">
