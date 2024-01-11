@@ -42,11 +42,7 @@ const MultiStepForm = () => {
     count: steps.length,
   });
 
-  
-  useEffect(() => {
-    console.log("Required Fields from useEffect:", isRequiredFieldsCompleted);
-    setStepperColor(isRequiredFieldsCompleted ? "green" : "red");
-  }, [isRequiredFieldsCompleted]);
+
 
   const handleNextStep = () => {
     checkRequiredFields(); // Check completion status before proceeding to the next step
@@ -54,12 +50,7 @@ const MultiStepForm = () => {
 
     setStep((prevStep) => prevStep + 1);
     setActiveStep(step);
-    //checkRequiredFields(); // Check completion status before proceeding to the next step
-    //setStepperColor(isRequiredFieldsCompleted ? "green" : "red"); // Update stepper color
-
-    //  console.log("Active Step:",activeStep)
-    //  console.log("Step:",step)
-    //setStep((prevStep) => Math.min(prevStep + 1, steps.length));
+    setStepperColor(isRequiredFieldsCompleted ? "green" : "red"); // Update stepper color
   };
 
   const handlePreviousStep = () => {
@@ -72,7 +63,6 @@ const MultiStepForm = () => {
 
       return prevStep - 1;
     });
-    // setStep((prevStep) => Math.max(prevStep - 1, 1));
   };
 
   const handleSubmit = () => {

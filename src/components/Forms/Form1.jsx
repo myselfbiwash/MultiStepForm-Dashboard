@@ -61,7 +61,7 @@ const Form1 = () => {
         justifyContent: "center",
         display: "flex",
         flexDirection: "column",
-        backgroundColor: "lightblue",
+        // backgroundColor: "lightblue",
         padding: "20px",
       }}
     >
