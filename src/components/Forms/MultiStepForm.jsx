@@ -17,6 +17,8 @@ import Form1 from './Form1';
 import Form2 from './Form2';
 import Form3 from './Form3';
 import Form4 from './Form4';
+import { validateEmail, validatePhoneNumber } from '../../Utils/validateFunction';
+
 
 const steps = [
   { title: 'First', description: 'Contact Info' },
@@ -27,6 +29,8 @@ const steps = [
 
 const MultiStepForm = () => {
   const { userData, setUserData, finalData, setFinalData, submitForm } = useContext(FormContext);
+  const [isRequiredFieldsCompleted, setIsRequiredFieldsCompleted] = useState(false);
+
 
   const [step, setStep] = useState(1);
   const { activeStep, setActiveStep } = useSteps({
@@ -37,7 +41,7 @@ const MultiStepForm = () => {
   
 
   const handleNextStep = () => {
-   
+    checkRequiredFields(); // Check completion status before proceeding to the next step
 
 
     setStep((prevStep) => prevStep + 1);
@@ -67,6 +71,12 @@ const MultiStepForm = () => {
     setActiveStep(0);
   };
 
+  const checkRequiredFields = () => {
+    const requiredFieldsCompleted =
+        userData.name && validateEmail(userData.email) && validatePhoneNumber(userData.phoneNumber);
+    setIsRequiredFieldsCompleted(requiredFieldsCompleted);
+};
+
   const renderFormStep = () => {
     switch (step) {
       case 1:
@@ -89,7 +99,7 @@ const MultiStepForm = () => {
   return (
     <ChakraProvider>
       <Box maxW="full" mx="auto" mt="8" p="6">
-        <Stepper index={activeStep}>
+        <Stepper size="sm" index={activeStep} colorScheme={isRequiredFieldsCompleted ? 'green' : 'red'}>
           {steps.map((step, index) => (
             <Step key={index}>
               <StepIndicator>
