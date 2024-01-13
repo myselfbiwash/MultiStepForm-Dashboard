@@ -61,7 +61,7 @@ const Form1 = () => {
         justifyContent: "center",
         display: "flex",
         flexDirection: "column",
-        // backgroundColor: "lightblue",
+        backgroundColor: "lightblue",
         padding: "20px",
       }}
     >
@@ -129,7 +129,7 @@ const Form1 = () => {
           showYearDropdown
           scrollableYearDropdown
           yearDropdownItemNumber={100}
-          style={{ ...fieldStyles, width: "416px", height: "40px" }}
+          showIcon
         />
         <Box>you are: {age}</Box>
       </FormControl>

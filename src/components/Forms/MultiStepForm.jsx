@@ -30,10 +30,8 @@ const steps = [
 ];
 
 const MultiStepForm = () => {
-  const { userData, setUserData, finalData, setFinalData, submitForm } =
-    useContext(FormContext);
-  const [isRequiredFieldsCompleted, setIsRequiredFieldsCompleted] =
-    useState(false);
+  const { userData, setUserData, submitForm } = useContext(FormContext);
+  const [isRequiredFieldsCompleted, setIsRequiredFieldsCompleted] = useState(false);
   const [stepperColor, setStepperColor] = useState("blue");
 
   const [step, setStep] = useState(1);
@@ -42,34 +40,70 @@ const MultiStepForm = () => {
     count: steps.length,
   });
 
+  // useEffect(() => {
+  //   setStepperColor("blue"); // Set the initial color when the component mounts
+  // }, []);
 
+  // useEffect(() => {
+  //   console.log("Required Fields from useEffect:", isRequiredFieldsCompleted);
+  //   setStepperColor(isRequiredFieldsCompleted ? "green" : "red");
+  
+  // }, [isRequiredFieldsCompleted]);
 
   const handleNextStep = () => {
     checkRequiredFields(); // Check completion status before proceeding to the next step
-    console.log("Required Fields from Handle Next:", isRequiredFieldsCompleted);
-
     setStep((prevStep) => prevStep + 1);
     setActiveStep(step);
-    setStepperColor(isRequiredFieldsCompleted ? "green" : "red"); // Update stepper color
+
+    // setStepperColor((prevColor) => {
+    //   if (step < steps.length && isRequiredFieldsCompleted) {
+    //     return "green";
+    //   } else {
+    //     return "blue";
+    //   }
+    // });
+    
+    //setStepperColor(isRequiredFieldsCompleted ? "green" : "red");
+
   };
 
   const handlePreviousStep = () => {
     setStep((prevStep) => {
-      console.log("Prev Step is:", prevStep);
-      setActiveStep(prevStep - 2);
-      //active step is 1 less than step. if current step is 4 and we press previous button then step value should be 3 and active step should be 2. So prevStep-2
-      console.log("Prev:", activeStep);
+      setActiveStep(prevStep - 1);
       setStepperColor("blue");
-
       return prevStep - 1;
     });
   };
 
-  const handleSubmit = () => {
-    submitForm();
+  const resetForm = () => {
+    // Reset form state to default values
+    setUserData({
+      name: "",
+      email: "",
+      phoneNumber: "",
+      dateOfBirth: "",
+    });
+    setIsRequiredFieldsCompleted(false);
+    setStepperColor("blue");
     setStep(1);
     setActiveStep(0);
   };
+
+  const handleSubmit = () => {
+  
+    submitForm();
+    resetForm();
+    // setStep(1);
+    // setActiveStep(0);
+  };
+
+  // const checkRequiredFields = () => {
+  //   const requiredFieldsCompleted =
+  //     userData.name &&
+  //     validateEmail(userData.email) &&
+  //     validatePhoneNumber(userData.phoneNumber);
+  //   setIsRequiredFieldsCompleted(requiredFieldsCompleted);
+  // };
 
   const checkRequiredFields = () => {
     const requiredFieldsCompleted =
@@ -77,7 +111,17 @@ const MultiStepForm = () => {
       validateEmail(userData.email) &&
       validatePhoneNumber(userData.phoneNumber);
     setIsRequiredFieldsCompleted(requiredFieldsCompleted);
+  
+    // Update stepper color
+    setStepperColor(() => {
+      if (step < steps.length && requiredFieldsCompleted) {
+        return "green";
+      } else {
+        return "blue";
+      }
+    });
   };
+  
 
   const renderFormStep = () => {
     switch (step) {
@@ -111,7 +155,7 @@ const MultiStepForm = () => {
                 <StepStatus
                   complete={<StepIcon color="white.400" />}
                   incomplete={<StepNumber />}
-                  active={<StepNumber />}
+                  active={<StepNumber color="blue" />}
                 />
               </StepIndicator>
 
