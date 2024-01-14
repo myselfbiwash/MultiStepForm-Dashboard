@@ -30,50 +30,15 @@ const steps = [
 ];
 
 const MultiStepForm = () => {
-  const { userData, setUserData, submitForm } = useContext(FormContext);
+  const { userData, submitForm } = useContext(FormContext);
   const [isRequiredFieldsCompleted, setIsRequiredFieldsCompleted] = useState(false);
-  const [stepperColor, setStepperColor] = useState("blue");
+  const [stepColors, setStepColors] = useState(new Array(steps.length).fill("blue"));
 
   const [step, setStep] = useState(1);
   const { activeStep, setActiveStep } = useSteps({
     initialStep: step - 1,
     count: steps.length,
   });
-
-  // useEffect(() => {
-  //   setStepperColor("blue"); // Set the initial color when the component mounts
-  // }, []);
-
-  // useEffect(() => {
-  //   console.log("Required Fields from useEffect:", isRequiredFieldsCompleted);
-  //   setStepperColor(isRequiredFieldsCompleted ? "green" : "red");
-  
-  // }, [isRequiredFieldsCompleted]);
-
-  const handleNextStep = () => {
-    checkRequiredFields(); // Check completion status before proceeding to the next step
-    setStep((prevStep) => prevStep + 1);
-    setActiveStep(step);
-
-    // setStepperColor((prevColor) => {
-    //   if (step < steps.length && isRequiredFieldsCompleted) {
-    //     return "green";
-    //   } else {
-    //     return "blue";
-    //   }
-    // });
-    
-    //setStepperColor(isRequiredFieldsCompleted ? "green" : "red");
-
-  };
-
-  const handlePreviousStep = () => {
-    setStep((prevStep) => {
-      setActiveStep(prevStep - 1);
-      setStepperColor("blue");
-      return prevStep - 1;
-    });
-  };
 
   const resetForm = () => {
     // Reset form state to default values
@@ -89,21 +54,54 @@ const MultiStepForm = () => {
     setActiveStep(0);
   };
 
-  const handleSubmit = () => {
-  
-    submitForm();
-    resetForm();
-    // setStep(1);
-    // setActiveStep(0);
-  };
-
-  // const checkRequiredFields = () => {
-  //   const requiredFieldsCompleted =
-  //     userData.name &&
-  //     validateEmail(userData.email) &&
-  //     validatePhoneNumber(userData.phoneNumber);
-  //   setIsRequiredFieldsCompleted(requiredFieldsCompleted);
+  // const handleNextStep = () => {
+  //   checkRequiredFields(); // Check completion status before proceeding to the next step
+  //   setStep((prevStep) => prevStep + 1);
+  //   setActiveStep((prevActiveStep) => prevActiveStep + 1);
   // };
+
+  const handleNextStep = () => {
+    setStep((prevStep) => {
+      // Update the color of the current step and the next step
+      setStepColors((prevColors) => {
+        const newColors = [...prevColors];
+        newColors[prevStep - 1] = isRequiredFieldsCompleted ? "green" : "red";
+        newColors[prevStep] = "blue";
+        return newColors;
+      });
+      return prevStep + 1;
+    });
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+  
+
+  // const handlePreviousStep = () => {
+  //   setStep((prevStep) => {
+  //     setActiveStep(prevStep - 1);
+  //     setStepperColor((prevColor) => (prevStep === steps.length ? prevColor : "blue"));
+  //     return prevStep - 1;
+  //   });
+  // };
+  
+  const handlePreviousStep = () => {
+    setStep((prevStep) => {
+      setActiveStep(prevStep - 1);
+      // Update the color of the current step and the previous step
+      setStepColors((prevColors) => {
+        const newColors = [...prevColors];
+        newColors[prevStep - 1] = "blue";
+        newColors[prevStep - 2] = "blue";
+        return newColors;
+      });
+      return prevStep - 1;
+    });
+  };
+  
+
+  const handleSubmit = () => {
+    submitForm();
+    resetForm(); // Call the reset function after submitting the form
+  };
 
   const checkRequiredFields = () => {
     const requiredFieldsCompleted =
@@ -111,17 +109,16 @@ const MultiStepForm = () => {
       validateEmail(userData.email) &&
       validatePhoneNumber(userData.phoneNumber);
     setIsRequiredFieldsCompleted(requiredFieldsCompleted);
-  
+
     // Update stepper color
     setStepperColor(() => {
-      if (step < steps.length && requiredFieldsCompleted) {
+      if (step < steps.length && RequiredFieldsCompleted) {
         return "green";
       } else {
-        return "blue";
+        return "red";
       }
     });
   };
-  
 
   const renderFormStep = () => {
     switch (step) {
@@ -148,9 +145,9 @@ const MultiStepForm = () => {
   return (
     <ChakraProvider>
       <Box maxW="full" mx="auto" mt="8" p="6">
-        <Stepper size="sm" index={activeStep} colorScheme={stepperColor}>
+        <Stepper size="sm" index={activeStep} >
           {steps.map((step, index) => (
-            <Step key={index}>
+            <Step key={index} colorscheme={stepColors[activeStep]}>
               <StepIndicator>
                 <StepStatus
                   complete={<StepIcon color="white.400" />}
