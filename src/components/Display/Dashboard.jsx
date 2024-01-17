@@ -1,21 +1,28 @@
-import React, { useContext } from 'react';
-import FormContext from '../Context/Form/FormContext';
+import React, { useState, useEffect } from 'react';
 
 const Dashboard = () => {
-  const { finalData } = useContext(FormContext);
-  console.log("Final Data is:", finalData);
+  const [finalData, setFinalData] = useState({});
 
-  const renderFinalData = () => {
-    return Object.entries(finalData).map(([key, value]) => {
+  useEffect(() => {
+    const storedData = localStorage.getItem('finalData');
+    if (storedData) {
+      setFinalData(JSON.parse(storedData));
+    }
+    console.log(JSON.parse(storedData));
+  }, []); // Empty dependency array, runs only once after the initial render
+
+  // useEffect(() => {
+  //   // This effect will run every time `finalData` changes
+  //   localStorage.setItem('finalData', JSON.stringify(finalData));
+  // }, [finalData]); // Dependency on `finalData`
+
+  const renderNestedData = (data) => {
+    return Object.entries(data).map(([key, value]) => {
       if (typeof value === 'object' && value !== null) {
         return (
           <div key={key}>
             <strong>{key}:</strong>
-            {Object.entries(value).map(([subKey, subValue]) => (
-              <div key={subKey}>
-                <strong>{subKey}:</strong> {subValue}
-              </div>
-            ))}
+            {renderNestedData(value)}
           </div>
         );
       } else {
@@ -31,7 +38,7 @@ const Dashboard = () => {
   return (
     <div>
       <p>Your Input Data are:</p>
-      {renderFinalData()}
+      {renderNestedData(finalData)}
     </div>
   );
 };
