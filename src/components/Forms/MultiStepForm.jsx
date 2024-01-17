@@ -30,10 +30,10 @@ const steps = [
 ];
 
 const MultiStepForm = () => {
-  const { userData, submitForm } = useContext(FormContext);
+  const { setUserData,userData, submitForm } = useContext(FormContext);
   const [isRequiredFieldsCompleted, setIsRequiredFieldsCompleted] = useState(false);
-  const [stepColors, setStepColors] = useState(new Array(steps.length).fill("blue"));
-
+  //const [stepColors, setStepColors] = useState(new Array(steps.length).fill("blue"));
+  const [stepperColor, setStepperColor] = useState("blue");
   const [step, setStep] = useState(1);
   const { activeStep, setActiveStep } = useSteps({
     initialStep: step - 1,
@@ -54,48 +54,49 @@ const MultiStepForm = () => {
     setActiveStep(0);
   };
 
-  // const handleNextStep = () => {
-  //   checkRequiredFields(); // Check completion status before proceeding to the next step
-  //   setStep((prevStep) => prevStep + 1);
-  //   setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  // };
-
   const handleNextStep = () => {
-    setStep((prevStep) => {
-      // Update the color of the current step and the next step
-      setStepColors((prevColors) => {
-        const newColors = [...prevColors];
-        newColors[prevStep - 1] = isRequiredFieldsCompleted ? "green" : "red";
-        newColors[prevStep] = "blue";
-        return newColors;
-      });
-      return prevStep + 1;
-    });
+    checkRequiredFields(); // Check completion status before proceeding to the next step
+    setStep((prevStep) => prevStep + 1);
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
-  
 
-  // const handlePreviousStep = () => {
-  //   setStep((prevStep) => {
-  //     setActiveStep(prevStep - 1);
-  //     setStepperColor((prevColor) => (prevStep === steps.length ? prevColor : "blue"));
-  //     return prevStep - 1;
-  //   });
-  // };
-  
+//   const handleNextStep = () => {
+//     checkRequiredFields(); // Check completion status before proceeding to the next step
+//   setStep((prevStep) => {
+//     // Update the color of the current step and the next step
+//     setStepColors((prevColors) => {
+//       const newColors = [...prevColors];
+//       newColors[prevStep - 1] = isRequiredFieldsCompleted ? "green" : "red";
+//       newColors[prevStep] = "blue";
+//       return newColors;
+//     });
+//     return prevStep + 1;
+//   });
+//   setActiveStep((prevActiveStep) => prevActiveStep + 1);
+// };
+
+
   const handlePreviousStep = () => {
     setStep((prevStep) => {
       setActiveStep(prevStep - 1);
-      // Update the color of the current step and the previous step
-      setStepColors((prevColors) => {
-        const newColors = [...prevColors];
-        newColors[prevStep - 1] = "blue";
-        newColors[prevStep - 2] = "blue";
-        return newColors;
-      });
+      setStepperColor((prevColor) => (prevStep === steps.length ? prevColor : "blue"));
       return prevStep - 1;
     });
   };
+  
+  // const handlePreviousStep = () => {
+  //   setStep((prevStep) => {
+  //     setActiveStep(prevStep - 1);
+  //     // Update the color of the current step and the previous step
+  //     setStepColors((prevColors) => {
+  //       const newColors = [...prevColors];
+  //       newColors[prevStep - 1] = "blue";
+  //       newColors[prevStep - 2] = "blue";
+  //       return newColors;
+  //     });
+  //     return prevStep - 1;
+  //   });
+  // };
   
 
   const handleSubmit = () => {
@@ -112,7 +113,7 @@ const MultiStepForm = () => {
 
     // Update stepper color
     setStepperColor(() => {
-      if (step < steps.length && RequiredFieldsCompleted) {
+      if (step < steps.length && requiredFieldsCompleted) {
         return "green";
       } else {
         return "red";
@@ -145,9 +146,9 @@ const MultiStepForm = () => {
   return (
     <ChakraProvider>
       <Box maxW="full" mx="auto" mt="8" p="6">
-        <Stepper size="sm" index={activeStep} >
+        <Stepper size="sm" index={activeStep} colorscheme={stepperColor}>
           {steps.map((step, index) => (
-            <Step key={index} colorscheme={stepColors[activeStep]}>
+            <Step key={index} >
               <StepIndicator>
                 <StepStatus
                   complete={<StepIcon color="white.400" />}
