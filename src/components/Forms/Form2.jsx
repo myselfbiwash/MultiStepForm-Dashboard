@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { FormControl, FormLabel, Input, Textarea } from '@chakra-ui/react';
 import FormContext from '../Context/Form/FormContext';
 
 const Form2 = () => {
     const { userData, setUserData } = useContext(FormContext);
+    const [form2Data, setForm2Data] = useState({});
 
     const fieldStyles = {
         borderColor: 'blue.100',
@@ -13,13 +14,23 @@ const Form2 = () => {
         width: '416px',
     };
 
+    // Update form2Data state when input fields are blurred
+    const handleBlur = (key, value) => {
+        setForm2Data(prevState => ({ ...prevState, [key]: value }));
+    };
+
+    // Update userData state when form2Data state changes
+    useEffect(() => {
+        setUserData(prevState => ({ ...prevState, ...form2Data }));
+    }, [form2Data]);
+
     return (
         <div style={{ justifyContent: 'center', display: 'flex', flexDirection: 'column', backgroundColor: 'lightblue', padding: '20px' }}>
             <FormControl id="address" isRequired>
                 <FormLabel>Address</FormLabel>
                 <Textarea
                     defaultValue={userData['address'] || ''}
-                    onBlur={(e) => setUserData({ ...userData, address: e.target.value })}
+                    onBlur={(e) => handleBlur('address', e.target.value)}
                     variant="outline"
                     colorScheme="teal"
                     size="md"
@@ -31,7 +42,7 @@ const Form2 = () => {
                 <Input
                     type="text"
                     defaultValue={userData['city'] || ''}
-                    onBlur={(e) => setUserData({ ...userData, city: e.target.value })}
+                    onBlur={(e) => handleBlur('city', e.target.value)}
                     variant="outline"
                     colorScheme="teal"
                     margin="normal"
@@ -43,7 +54,7 @@ const Form2 = () => {
                 <Input
                     type="text"
                     defaultValue={userData['state'] || ''}
-                    onBlur={(e) => setUserData({ ...userData, state: e.target.value })}
+                    onBlur={(e) => handleBlur('state', e.target.value)}
                     variant="outline"
                     colorScheme="teal"
                     margin="normal"
@@ -55,7 +66,7 @@ const Form2 = () => {
                 <Input
                     type="text"
                     defaultValue={userData['zipCode'] || ''}
-                    onBlur={(e) => setUserData({ ...userData, zipCode: e.target.value })}
+                    onBlur={(e) => handleBlur('zipCode', e.target.value)}
                     variant="outline"
                     colorScheme="teal"
                     margin="normal"

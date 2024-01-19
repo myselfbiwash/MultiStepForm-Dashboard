@@ -1,35 +1,12 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Box, FormControl, FormLabel, Input, Button, Heading, HStack, VStack } from "@chakra-ui/react";
 import FormContext from "../Context/Form/FormContext";
 
 const Form4 = () => {
   const { userData, setUserData } = useContext(FormContext);
-  const [subjectMarks, setSubjectMarks] = useState({
-    computer: "",
-    math: "",
-    english: "",
-    science: "",
-    nepali: "",
-    social: "",
-    // Add more subjects as needed
-  });
-
-  const handleMarksChange = (subject, value) => {
-    setSubjectMarks((prevMarks) => ({
-      ...prevMarks,
-      [subject]: value,
-    }));
-  };
-
-  const saveMarksheet = () => {
-    setUserData({
-      ...userData,
-      marksheet: {
-        ...subjectMarks,
-      },
-    });
-    // Optionally, you can reset subject marks to an empty state
-    setSubjectMarks({
+  const [form4Data, setForm4Data] = useState({
+    name: "",
+    marksheet: {
       computer: "",
       math: "",
       english: "",
@@ -37,8 +14,28 @@ const Form4 = () => {
       nepali: "",
       social: "",
       // Add more subjects as needed
-    });
+    },
+  });
+
+  const handleInputChange = (key, value) => {
+    setForm4Data(prevState => ({ ...prevState, [key]: value }));
   };
+
+  const handleMarksChange = (subject, value) => {
+    setForm4Data(prevState => ({
+      ...prevState,
+      marksheet: {
+        ...prevState.marksheet,
+        [subject]: value,
+      },
+    }));
+  };
+
+  // Update userData state when form4Data state changes
+  useEffect(() => {
+    setUserData(prevState => ({ ...prevState, ...form4Data }));
+    console.log("User Data is:",userData);
+  }, [form4Data]);
 
   return (
     <Box p={8} borderWidth={1} borderRadius={8} boxShadow="lg">
@@ -50,14 +47,14 @@ const Form4 = () => {
           <FormLabel>Your name</FormLabel>
           <Input
             type="text"
-            defaultValue={userData["name"] || ""}
-            onBlur={(e) => setUserData({ ...userData, name: e.target.value })}
+            defaultValue={form4Data["name"] || ""}
+            onBlur={(e) => handleInputChange("name", e.target.value)}
           />
         </FormControl>
         <Heading as="h3" size="md" mt={4} mb={2}>
           Subject Marks
         </Heading>
-        {Object.entries(subjectMarks).map(([subject, marks]) => (
+        {Object.entries(form4Data.marksheet).map(([subject, marks]) => (
           <FormControl key={subject} id={subject} isRequired>
             <FormLabel>{subject.charAt(0).toUpperCase() + subject.slice(1)} Marks</FormLabel>
             <Input
@@ -67,7 +64,7 @@ const Form4 = () => {
             />
           </FormControl>
         ))}
-        <Button onClick={saveMarksheet} colorScheme="teal" mt={6}>
+        <Button colorScheme="teal" mt={6}>
           Save Marksheet
         </Button>
       </VStack>

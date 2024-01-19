@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Box, FormControl, FormLabel, Input } from "@chakra-ui/react";
 import FormContext from "../Context/Form/FormContext";
 import DatePicker from "react-datepicker";
@@ -15,16 +15,13 @@ const Form1 = () => {
   const [age, setAge] = useState("");
   const [emailInvalid, setEmailInvalid] = useState(false);
   const [phoneNumberInvalid, setPhoneNumberInvalid] = useState(false);
-  //const [form1Data, setForm1Data] = useState({});
+  const [form1Data, setForm1Data] = useState({});
 
   const handleDOBChange = (date) => {
     if (date instanceof Date && !isNaN(date)) {
       setDOB(date);
       calculateAge(date);
-      setUserData({
-        ...userData,
-        dateOfBirth: date.toISOString(),
-      });
+      setForm1Data(prevState => ({ ...prevState, dateOfBirth: date.toISOString() }));
     } else {
       console.error("Invalid date");
     }
@@ -56,6 +53,16 @@ const Form1 = () => {
     width: "416px",
   };
 
+  // Update form1Data state when input fields are blurred
+  const handleBlur = (key, value) => {
+    setForm1Data(prevState => ({ ...prevState, [key]: value }));
+  };
+
+  // Update userData state when form1Data state changes
+  useEffect(() => {
+    setUserData(prevState => ({ ...prevState, ...form1Data }));
+  }, [form1Data]);
+
   return (
     <div
       style={{
@@ -72,7 +79,7 @@ const Form1 = () => {
           type="text"
           className="form"
           defaultValue={userData["name"] || ""}
-          onBlur={(e) => setUserData({ ...userData, name: e.target.value })}
+          onBlur={(e) => handleBlur('name', e.target.value)}
           variant="outline"
           colorScheme="teal"
           margin="normal"
@@ -88,7 +95,7 @@ const Form1 = () => {
           onBlur={(e) => {
             const email = e.target.value;
             validateEmail(email);
-            setUserData({ ...userData, email });
+            handleBlur('email', email);
             setEmailInvalid(!validateEmail(email));
           }}
           isInvalid={emailInvalid}
@@ -107,7 +114,7 @@ const Form1 = () => {
           onBlur={(e) => {
             const phoneNumber = e.target.value;
             validatePhoneNumber(phoneNumber);
-            setUserData({ ...userData, phoneNumber });
+            handleBlur('phoneNumber', phoneNumber);
             setPhoneNumberInvalid(!validatePhoneNumber(phoneNumber));
           }}
           isInvalid={phoneNumberInvalid}

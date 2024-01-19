@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import {
   Box,
   Button,
@@ -13,21 +13,24 @@ import "./Form.css";
 const Form3 = () => {
   const { userData, setUserData } = useContext(FormContext);
   const [projects, setProjects] = useState([{ title: "", description: "" }]);
+  const [form3Data, setForm3Data] = useState({});
 
   const handleInputChange = (index, event) => {
     const { name, value } = event.target;
     const updatedProjects = [...projects];
     updatedProjects[index][name] = value;
     setProjects(updatedProjects);
+    setForm3Data({ projects: updatedProjects });
   };
 
   const handleAddProject = () => {
     setProjects([...projects, { title: "", description: "" }]);
   };
 
-  const handleSave = () => {
-    setUserData({ ...userData, projects: projects });
-  };
+  // Update userData state when form3Data state changes
+  useEffect(() => {
+    setUserData(prevState => ({ ...prevState, ...form3Data }));
+  }, [form3Data]);
 
   return (
     <div
@@ -39,30 +42,28 @@ const Form3 = () => {
         padding: "20px",
       }}
     >
-  {projects.map((project, index) => (
-  <Box key={index} marginBottom="20px">
-    <FormControl>
-      <FormLabel>Project {index + 1}</FormLabel>
-      <Input
-        type="text"
-        name="title"
-        value={project.title}
-        onChange={(event) => handleInputChange(index, event)}
-      />
-    </FormControl>
-    <FormControl marginTop="10px">
-      <FormLabel>Project Description</FormLabel>
-      <Input
-        type="text"
-        name="description"
-        value={project.description}
-        onChange={(event) => handleInputChange(index, event)}
-      />
-    </FormControl>
-  </Box>
-))}
-      <Button onClick={handleSave}>Save</Button>
-
+      {projects.map((project, index) => (
+        <Box key={index} marginBottom="20px">
+          <FormControl>
+            <FormLabel>Project {index + 1}</FormLabel>
+            <Input
+              type="text"
+              name="title"
+              value={project.title}
+              onChange={(event) => handleInputChange(index, event)}
+            />
+          </FormControl>
+          <FormControl marginTop="10px">
+            <FormLabel>Project Description</FormLabel>
+            <Input
+              type="text"
+              name="description"
+              value={project.description}
+              onChange={(event) => handleInputChange(index, event)}
+            />
+          </FormControl>
+        </Box>
+      ))}
       <Button onClick={handleAddProject}>Add Project<b>+</b></Button>
     </div>
   );
