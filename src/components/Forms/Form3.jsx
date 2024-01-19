@@ -1,10 +1,18 @@
-import { useState, useContext } from 'react';
-import { Box, Button, Stack, FormControl, FormLabel, Input } from '@chakra-ui/react';
-import FormContext from '../Context/Form/FormContext';
+import { useState, useContext } from "react";
+import {
+  Box,
+  Button,
+  Stack,
+  FormControl,
+  FormLabel,
+  Input,
+} from "@chakra-ui/react";
+import FormContext from "../Context/Form/FormContext";
+import "./Form.css";
 
 const Form3 = () => {
   const { userData, setUserData } = useContext(FormContext);
-  const [projects, setProjects] = useState([{ title: '', description: '' }]);
+  const [projects, setProjects] = useState([{ title: "", description: "" }]);
 
   const handleInputChange = (index, event) => {
     const { name, value } = event.target;
@@ -14,53 +22,48 @@ const Form3 = () => {
   };
 
   const handleAddProject = () => {
-    setProjects([...projects, { title: '', description: '' }]);
+    setProjects([...projects, { title: "", description: "" }]);
   };
 
   const handleSave = () => {
-    const projectElements = projects.map((project, index) => (
-      <div key={index}>
-        <h1>{project.title}</h1>
-        <p>{project.description}</p>
-      </div>
-    ));
-    setUserData({ ...userData, projects: projectElements });
+    setUserData({ ...userData, projects: projects });
   };
 
   return (
     <div
       style={{
-        justifyContent: 'center',
-        display: 'flex',
-        flexDirection: 'column',
-        backgroundColor: 'lightblue',
-        padding: '20px',
+        justifyContent: "center",
+        display: "flex",
+        flexDirection: "column",
+        backgroundColor: "lightblue",
+        padding: "20px",
       }}
     >
-      {projects.map((project, index) => (
-        <Box key={index} marginBottom="20px">
-          <FormControl>
-            <FormLabel>Project Title</FormLabel>
-            <Input
-              type="text"
-              name="title"
-              value={project.title}
-              onChange={(event) => handleInputChange(index, event)}
-            />
-          </FormControl>
-          <FormControl marginTop="10px">
-            <FormLabel>Project Description</FormLabel>
-            <Input
-              type="text"
-              name="description"
-              value={project.description}
-              onChange={(event) => handleInputChange(index, event)}
-            />
-          </FormControl>
-        </Box>
-      ))}
-      <Button onClick={handleAddProject}>Add Project</Button>
+  {projects.map((project, index) => (
+  <Box key={index} marginBottom="20px">
+    <FormControl>
+      <FormLabel>Project {index + 1}</FormLabel>
+      <Input
+        type="text"
+        name="title"
+        value={project.title}
+        onChange={(event) => handleInputChange(index, event)}
+      />
+    </FormControl>
+    <FormControl marginTop="10px">
+      <FormLabel>Project Description</FormLabel>
+      <Input
+        type="text"
+        name="description"
+        value={project.description}
+        onChange={(event) => handleInputChange(index, event)}
+      />
+    </FormControl>
+  </Box>
+))}
       <Button onClick={handleSave}>Save</Button>
+
+      <Button onClick={handleAddProject}>Add Project<b>+</b></Button>
     </div>
   );
 };

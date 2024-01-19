@@ -15,6 +15,7 @@ const Form1 = () => {
   const [age, setAge] = useState("");
   const [emailInvalid, setEmailInvalid] = useState(false);
   const [phoneNumberInvalid, setPhoneNumberInvalid] = useState(false);
+  //const [form1Data, setForm1Data] = useState({});
 
   const handleDOBChange = (date) => {
     if (date instanceof Date && !isNaN(date)) {
