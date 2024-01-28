@@ -146,6 +146,7 @@ const MultiStepForm = () => {
   return (
     <ChakraProvider>
       <Box maxW="full" mx="auto" mt="8" p="6">
+        <h3>Multi Step Form</h3>  
         <Stepper size="sm" index={activeStep} colorscheme={stepperColor}>
           {steps.map((step, index) => (
             <Step key={index} >

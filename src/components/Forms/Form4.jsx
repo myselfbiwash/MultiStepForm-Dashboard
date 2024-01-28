@@ -1,6 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Box, FormControl, FormLabel, Input, Button, Heading, HStack, VStack } from "@chakra-ui/react";
 import FormContext from "../Context/Form/FormContext";
+import './globalForm.css';
+
 
 const Form4 = () => {
   const { userData, setUserData } = useContext(FormContext);
@@ -38,7 +40,7 @@ const Form4 = () => {
   }, [form4Data]);
 
   return (
-    <Box p={8} borderWidth={1} borderRadius={8} boxShadow="lg">
+    <Box p={8} borderWidth={1} borderRadius={8} boxShadow="lg" className="form-part">
       <Heading as="h2" size="xl" mb={6}>
         Marksheet Form
       </Heading>

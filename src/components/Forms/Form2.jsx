@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { FormControl, FormLabel, Input, Textarea } from '@chakra-ui/react';
 import FormContext from '../Context/Form/FormContext';
+import './globalForm.css';
 
 const Form2 = () => {
     const { userData, setUserData } = useContext(FormContext);
@@ -25,7 +26,8 @@ const Form2 = () => {
     }, [form2Data]);
 
     return (
-        <div style={{ justifyContent: 'center', display: 'flex', flexDirection: 'column', backgroundColor: 'lightblue', padding: '20px' }}>
+        <div style={{ justifyContent: 'center', display: 'flex', flexDirection: 'column',  padding: '20px' }}
+        className='form-part'>
             <FormControl id="address" isRequired>
                 <FormLabel>Address</FormLabel>
                 <Textarea

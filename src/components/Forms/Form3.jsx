@@ -9,6 +9,8 @@ import {
 } from "@chakra-ui/react";
 import FormContext from "../Context/Form/FormContext";
 import "./Form.css";
+import './globalForm.css';
+
 
 const Form3 = () => {
   const { userData, setUserData } = useContext(FormContext);
@@ -38,9 +40,9 @@ const Form3 = () => {
         justifyContent: "center",
         display: "flex",
         flexDirection: "column",
-        backgroundColor: "lightblue",
         padding: "20px",
       }}
+      className="form-part"
     >
       {projects.map((project, index) => (
         <Box key={index} marginBottom="20px">
@@ -64,8 +66,8 @@ const Form3 = () => {
           </FormControl>
         </Box>
       ))}
-      <Button onClick={handleAddProject}>Add Project<b>+</b></Button>
-    </div>
+        <Button onClick={handleAddProject} colorScheme="blue">Add Project<b>+</b></Button>
+      </div>
   );
 };
 

@@ -8,6 +8,7 @@ import {
   validateEmail,
   validatePhoneNumber,
 } from "../../Utils/validateFunction";
+import "./globalForm.css";
 
 const Form1 = () => {
   const { userData, setUserData } = useContext(FormContext);
@@ -69,9 +70,9 @@ const Form1 = () => {
         justifyContent: "center",
         display: "flex",
         flexDirection: "column",
-        backgroundColor: "lightblue",
         padding: "20px",
       }}
+      className="form-part"
     >
       <FormControl id="name" isRequired>
         <FormLabel>Your name</FormLabel>
