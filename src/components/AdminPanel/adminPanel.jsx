@@ -4,16 +4,20 @@ import FormContext from '../Context/Form/FormContext';
 
 const AdminPanel = () => {
   const { facultySubjects, setFacultySubjects } = useContext(FormContext);
-  const [faculty, setFaculty] = useState('');
+  const [faculty, setFaculty] = useState('computerEngineering');
   const [semester, setSemester] = useState(1);
   const [numSubjects, setNumSubjects] = useState(0);
   const [subjects, setSubjects] = useState([]);
 
   const handleNumSubjectsChange = (e) => {
     const num = parseInt(e.target.value, 10);
-    setNumSubjects(num);
-    setSubjects(Array(num).fill(''));
-  };
+    if (!isNaN(num) && num >= 0) {
+        setNumSubjects(num);
+        setSubjects(Array(num).fill(''));
+    } else {
+        console.error('Invalid number of subjects:', e.target.value);
+    }
+};
 
   const handleSubjectChange = (index, value) => {
     const updatedSubjects = [...subjects];
@@ -23,17 +27,23 @@ const AdminPanel = () => {
 
   const handleSaveSubjects = () => {
     const updatedFacultySubjects = { ...facultySubjects };
-
+  
     if (!updatedFacultySubjects[faculty]) {
       updatedFacultySubjects[faculty] = {};
     }
-
+  
     if (!updatedFacultySubjects[faculty][semester]) {
       updatedFacultySubjects[faculty][semester] = subjects;
     }
-
+  
     setFacultySubjects(updatedFacultySubjects);
-    console.log("Here are the list of subjects of ",facultySubjects)
+  
+    // Check the value of 'computerEngineering' semester 1 subjects
+    if (updatedFacultySubjects['computerEngineering'] && updatedFacultySubjects['computerEngineering']['1']) {
+      console.log("Here are the list of subjects of 1st sem computer faculty", updatedFacultySubjects['mechanicalEngineering']['1']);
+    } else {
+      console.log("'computerEngineering' or '1' is not defined in updatedFacultySubjects");
+    }
   };
 
   return (
