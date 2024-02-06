@@ -1,6 +1,7 @@
 // AdminPanel.jsx
 import React, { useState, useContext } from 'react';
 import FormContext from '../Context/Form/FormContext';
+import './AdminPanel.css';
 
 const AdminPanel = () => {
   const { facultySubjects, setFacultySubjects } = useContext(FormContext);
@@ -40,7 +41,7 @@ const AdminPanel = () => {
   
     // Check the value of 'computerEngineering' semester 1 subjects
     if (updatedFacultySubjects['computerEngineering'] && updatedFacultySubjects['computerEngineering']['1']) {
-      console.log("Here are the list of subjects of 1st sem computer faculty", updatedFacultySubjects['mechanicalEngineering']['1']);
+      console.log("Here are the list of subjects of 1st sem computer faculty", updatedFacultySubjects['computerEngineering']['1']);
     } else {
       console.log("'computerEngineering' or '1' is not defined in updatedFacultySubjects");
     }
@@ -87,7 +88,7 @@ const AdminPanel = () => {
             />
           </div>
         ))}
-        <button onClick={handleSaveSubjects}>Save Subjects</button>
+        <button onClick={handleSaveSubjects} style={{background:'blue'}}>Save Subjects</button>
       </div>
     </div>
   );
