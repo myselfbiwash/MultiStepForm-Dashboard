@@ -42,6 +42,11 @@ const AdminPanel = () => {
     // Check the value of 'computerEngineering' semester 1 subjects
     if (updatedFacultySubjects['computerEngineering'] && updatedFacultySubjects['computerEngineering']['1']) {
       console.log("Here are the list of subjects of 1st sem computer faculty", updatedFacultySubjects['computerEngineering']['1']);
+      console.log("Here is the 2nd subject of 1st sem computer faculty: ", updatedFacultySubjects['computerEngineering']['1'][1]);
+      console.log("Here are the list of subjects of 2nd sem computer faculty", updatedFacultySubjects['computerEngineering']['2']);
+      console.log("Updated Faculty Subjects: ", updatedFacultySubjects)
+
+
     } else {
       console.log("'computerEngineering' or '1' is not defined in updatedFacultySubjects");
     }

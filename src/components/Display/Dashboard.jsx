@@ -3,11 +3,20 @@ import "./Dashboard.css";
 
 const Dashboard = () => {
   const [finalData, setFinalData] = useState({});
+  const [facultySubjects, setFacultySubjects] = useState({}); // Added this line
+
 
   useEffect(() => {
     const storedData = localStorage.getItem("finalData");
     if (storedData) {
       setFinalData(JSON.parse(storedData));
+    }
+  }, []);
+
+  useEffect(() => {
+    const storedSubjectsData = localStorage.getItem("facultySubjects");
+    if (storedSubjectsData) {
+      setFacultySubjects(JSON.parse(storedSubjectsData));
     }
   }, []);
 
@@ -73,6 +82,24 @@ const Dashboard = () => {
       </tbody>
     </table>
   )}
+</div>
+<div>
+  <h3>Faculty Subjects</h3>
+  {facultySubjects&&Object.entries(facultySubjects).map(([faculty, semesters]) => (
+    <div key={faculty}>
+      <h4>{faculty}</h4>
+      {Object.entries(semesters).map(([semester, subjects]) => (
+        <div key={semester}>
+          <h5>Semester {semester}</h5>
+          <ul>
+            {subjects.map((subject, index) => (
+              <li key={index}>{subject}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  ))}
 </div>
     </div>
   );

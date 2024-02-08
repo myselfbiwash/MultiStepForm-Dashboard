@@ -21,6 +21,11 @@ const FormState = (props) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (facultySubjects.length === 0) return;
+    localStorage.setItem("facultySubjects", JSON.stringify(facultySubjects));
+  }, [facultySubjects]);
+
   const submitForm = () => {
     setFinalData(userData);
   };
