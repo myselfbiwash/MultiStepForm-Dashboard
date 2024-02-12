@@ -1,43 +1,60 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Box, FormControl, FormLabel, Input, Button, Heading, HStack, VStack } from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, Input, Button, Heading, VStack, Select } from "@chakra-ui/react";
 import FormContext from "../Context/Form/FormContext";
 import './globalForm.css';
 
-
 const Form4 = () => {
-  const { userData, setUserData } = useContext(FormContext);
-  const [form4Data, setForm4Data] = useState({
-    name: "",
-    marksheet: {
-      computer: "",
-      math: "",
-      english: "",
-      science: "",
-      nepali: "",
-      social: "",
-      // Add more subjects as needed
-    },
-  });
+  const { finalData, setFinalData } = useContext(FormContext); // Use finalData and setFinalData
+  const [facultySubjects, setFacultySubjects] = useState({});
+  const [selectedFaculty, setSelectedFaculty] = useState("");
+  const [selectedSemester, setSelectedSemester] = useState("");
+  const [subjects, setSubjects] = useState([]);
+  const [marks, setMarks] = useState({});
 
-  const handleInputChange = (key, value) => {
-    setForm4Data(prevState => ({ ...prevState, [key]: value }));
-  };
+  useEffect(() => {
+    const storedSubjectsData = localStorage.getItem("facultySubjects");
+    if (storedSubjectsData) {
+      setFacultySubjects(JSON.parse(storedSubjectsData));
+    }
+  }, []);
+  
+  useEffect(() => {
+    if (selectedFaculty && selectedSemester) {
+      setSubjects(facultySubjects[selectedFaculty][selectedSemester]);
+    }
+  }, [selectedFaculty, selectedSemester]);
+
+  
 
   const handleMarksChange = (subject, value) => {
-    setForm4Data(prevState => ({
+    setMarks(prevState => ({
       ...prevState,
-      marksheet: {
-        ...prevState.marksheet,
-        [subject]: value,
-      },
+      [subject]: value,
     }));
   };
 
-  // Update userData state when form4Data state changes
-  useEffect(() => {
-    setUserData(prevState => ({ ...prevState, ...form4Data }));
-    console.log("User Data is:",userData);
-  }, [form4Data]);
+  const handleSave = () => {
+    // Add the marks to the facultySubjects state
+    const updatedFacultySubjects = {
+      ...facultySubjects,
+      [selectedFaculty]: {
+        ...facultySubjects[selectedFaculty],
+        [selectedSemester]: subjects.map((subject) => ({
+          name: subject,
+          marks: marks[subject] || 0,
+        })),
+      },
+    };
+
+    setFacultySubjects(updatedFacultySubjects);
+
+    // Save the updated facultySubjects to the finalData context
+    setFinalData((prevState) => ({
+      ...prevState,
+      facultySubjects: updatedFacultySubjects,
+    }));
+    console.log("marks are:",updatedFacultySubjects);
+  };
 
   return (
     <Box p={8} borderWidth={1} borderRadius={8} boxShadow="lg" className="form-part">
@@ -45,28 +62,39 @@ const Form4 = () => {
         Marksheet Form
       </Heading>
       <VStack spacing={4} align="stretch">
-        <FormControl id="name" isRequired>
-          <FormLabel>Your name</FormLabel>
-          <Input
-            type="text"
-            defaultValue={form4Data["name"] || ""}
-            onBlur={(e) => handleInputChange("name", e.target.value)}
-          />
+        <FormControl id="faculty" isRequired>
+          <FormLabel>Faculty</FormLabel>
+          <Select onChange={(e) => setSelectedFaculty(e.target.value)}>
+            {Object.keys(facultySubjects).map((faculty) => (
+              <option key={faculty} value={faculty}>
+                {faculty}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl id="semester" isRequired>
+          <FormLabel>Semester</FormLabel>
+          <Select onChange={(e) => setSelectedSemester(e.target.value)}>
+            {selectedFaculty && Object.keys(facultySubjects[selectedFaculty]).map((semester) => (
+              <option key={semester} value={semester}>
+                {semester}
+              </option>
+            ))}
+          </Select>
         </FormControl>
         <Heading as="h3" size="md" mt={4} mb={2}>
           Subject Marks
         </Heading>
-        {Object.entries(form4Data.marksheet).map(([subject, marks]) => (
+        {subjects.map(subject => (
           <FormControl key={subject} id={subject} isRequired>
             <FormLabel>{subject.charAt(0).toUpperCase() + subject.slice(1)} Marks</FormLabel>
             <Input
               type="number"
-              value={marks}
               onChange={(e) => handleMarksChange(subject, e.target.value)}
             />
           </FormControl>
         ))}
-        <Button colorScheme="teal" mt={6}>
+        <Button colorScheme="teal" mt={6} onClick={handleSave}>
           Save Marksheet
         </Button>
       </VStack>

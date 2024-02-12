@@ -45,7 +45,7 @@ const Dashboard = () => {
       ))}
              </div>
 
-             <div className="form4">
+             {/* <div className="form4">
   {finalData.marksheet && (
     <table>
       <thead>
@@ -82,7 +82,7 @@ const Dashboard = () => {
       </tbody>
     </table>
   )}
-</div>
+</div> */}
 <div>
   <h3>Faculty Subjects</h3>
   {facultySubjects&&Object.entries(facultySubjects).map(([faculty, semesters]) => (
