@@ -11,19 +11,43 @@ const Form4 = () => {
   const [subjects, setSubjects] = useState([]);
   const [marks, setMarks] = useState({});
 
+  // useEffect(() => {
+  //   const storedSubjectsData = localStorage.getItem("facultySubjects");
+  //   if (storedSubjectsData) {
+  //     setFacultySubjects(JSON.parse(storedSubjectsData));
+  //   }
+  // }, []);
+  
+  // useEffect(() => {
+  //   if (selectedFaculty){
+  //     console.log("Faculty Subject is:",facultySubjects[selectedFaculty]);
+  //     setSelectedSemester(facultySubjects[selectedFaculty]);
+  //   }
+  //   if (selectedFaculty && selectedSemester) {
+  //     setSubjects(facultySubjects[selectedFaculty][selectedSemester]);
+  //   }
+  // }, [selectedFaculty, selectedSemester]);
+
+
   useEffect(() => {
     const storedSubjectsData = localStorage.getItem("facultySubjects");
     if (storedSubjectsData) {
-      setFacultySubjects(JSON.parse(storedSubjectsData));
+      const parsedData = JSON.parse(storedSubjectsData);
+      setFacultySubjects(parsedData);
+  
+      // Set the first faculty as default
+      const firstFaculty = Object.keys(parsedData)[0];
+      setSelectedFaculty(firstFaculty);
+  
+      // Set the first semester of the first faculty as default
+      const firstSemester = Object.keys(parsedData[firstFaculty])[0];
+      setSelectedSemester(firstSemester);
+
+      // Set the subjects of the first semester as default
+      setSubjects(parsedData[firstFaculty][firstSemester]);
+
     }
   }, []);
-  
-  useEffect(() => {
-    if (selectedFaculty && selectedSemester) {
-      setSubjects(facultySubjects[selectedFaculty][selectedSemester]);
-    }
-  }, [selectedFaculty, selectedSemester]);
-
   
 
   const handleMarksChange = (subject, value) => {
@@ -31,6 +55,11 @@ const Form4 = () => {
       ...prevState,
       [subject]: value,
     }));
+  };
+
+  const handleSemesterChange = (e) => {
+    setSelectedSemester(e.target.value);
+    setSubjects(facultySubjects[selectedFaculty][e.target.value]);
   };
 
   const handleSave = () => {
@@ -45,6 +74,7 @@ const Form4 = () => {
         })),
       },
     };
+    console.log("🚀 ~ handleSave ~ updatedFacultySubjects:", updatedFacultySubjects)
 
     setFacultySubjects(updatedFacultySubjects);
 
@@ -74,7 +104,7 @@ const Form4 = () => {
         </FormControl>
         <FormControl id="semester" isRequired>
           <FormLabel>Semester</FormLabel>
-          <Select onChange={(e) => setSelectedSemester(e.target.value)}>
+          <Select onChange={(e) => handleSemesterChange(e)}>
             {selectedFaculty && Object.keys(facultySubjects[selectedFaculty]).map((semester) => (
               <option key={semester} value={semester}>
                 {semester}
@@ -86,6 +116,7 @@ const Form4 = () => {
           Subject Marks
         </Heading>
         {subjects.map(subject => (
+          console.log("subject is:",subject),
           <FormControl key={subject} id={subject} isRequired>
             <FormLabel>{subject.charAt(0).toUpperCase() + subject.slice(1)} Marks</FormLabel>
             <Input
