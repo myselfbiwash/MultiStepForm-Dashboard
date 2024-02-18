@@ -13,52 +13,57 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
-      <div className="intro no-gap">
-        <div className="form1 ">
-          <span>Name: {finalData.name}</span>
-          <span>Email: {finalData.email}</span>
-          <span>Phone No. : {finalData.phoneNumber}</span>
-          <span>Date of Birth: {finalData.dateOfBirth}</span>
+      <div className="intro">
+        <div className="form1">
+          <h2>Personal Information</h2>
+          <p><strong>Name:</strong> {finalData.name}</p>
+          <p><strong>Email:</strong> {finalData.email}</p>
+          <p><strong>Phone No.:</strong> {finalData.phoneNumber}</p>
+          <p><strong>Date of Birth:</strong> {finalData.dateOfBirth}</p>
         </div>
-        <div className="form2 no-gap">
-          This is Mr. {finalData.name}. He is living at {finalData.address}. You
+        <div className="form2">
+          <p>This is Mr. {finalData.name}. He is living at {finalData.address}. You
           can contact Mr. {finalData.name} with email: {finalData.email}. He is
-          from {finalData.state} province.
+          from {finalData.state} province.</p>
         </div>
       </div>
-      <div className="projects no-gap">
+      <div className="projects">
+        <h2>Projects</h2>
         {finalData.projects &&
           finalData.projects.map((project, index) => (
             <div key={index} className="form3">
-              Project: {project.title}&nbsp;&nbsp;
-              <span>Description: {project.description}</span>
+              <h3>Project: {project.title}</h3>
+              <p><strong>Description:</strong> {project.description}</p>
             </div>
           ))}
       </div>
 
       <div>
-        <h3>Faculty Subjects</h3>
+        <h2>Faculty Subjects</h2>
         {finalData.facultySubjects &&
           Object.entries(finalData.facultySubjects).map(
             ([faculty, semesters]) => (
               <div key={faculty}>
-                <h4>{faculty}</h4>
+                <h3>{faculty}</h3>
                 {Object.entries(semesters).map(([semester, subjects]) => (
                   <div key={semester}>
-                    <h5>Semester {semester}</h5>
-                    <ul>
-                      {subjects.map((subject, index) => (
-                        <li key={index}>
-                          {typeof subject === "object" ? (
-                            <span>
-                              {subject.name}: {subject.marks}
-                            </span>
-                          ) : (
-                            subject
-                          )}
-                        </li>
-                      ))}
-                    </ul>
+                    <h4>Semester {semester}</h4>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Subject</th>
+                          <th>Marks</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {subjects.map((subject, index) => (
+                          <tr key={index}>
+                            <td>{typeof subject === "object" ? subject.name : subject}</td>
+                            <td>{typeof subject === "object" ? subject.marks : 'N/A'}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
                 ))}
               </div>
