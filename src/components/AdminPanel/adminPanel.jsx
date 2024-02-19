@@ -18,7 +18,7 @@ const AdminPanel = () => {
     } else {
         console.error('Invalid number of subjects:', e.target.value);
     }
-};
+  };
 
   const handleSubjectChange = (index, value) => {
     const updatedSubjects = [...subjects];
@@ -38,13 +38,11 @@ const AdminPanel = () => {
     }
   
     setFacultySubjects(updatedFacultySubjects);
-  
-   
   };
 
   return (
     <div>
-      <h2>Admin Panel</h2>
+      <h2>Select Subject</h2>
       <label>Select Faculty:</label>
       <select value={faculty} onChange={(e) => setFaculty(e.target.value)}>
         <option value="computerEngineering">Computer Engineering</option>

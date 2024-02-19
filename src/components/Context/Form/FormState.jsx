@@ -27,7 +27,7 @@ const FormState = (props) => {
   }, [facultySubjects]);
 
   const submitForm = () => {
-    setFinalData(finalData);
+    setFinalData(userData);
   };
 
   const state = { userData, setUserData, finalData, setFinalData, facultySubjects, setFacultySubjects};

@@ -4,7 +4,7 @@ import FormContext from "../Context/Form/FormContext";
 import './globalForm.css';
 
 const Form4 = () => {
-  const { finalData, setFinalData } = useContext(FormContext); // Use finalData and setFinalData
+  const { userData, setUserData } = useContext(FormContext); // Use finalData and setFinalData
   const [facultySubjects, setFacultySubjects] = useState({});
   const [selectedFaculty, setSelectedFaculty] = useState("");
   const [selectedSemester, setSelectedSemester] = useState("");
@@ -79,7 +79,7 @@ const Form4 = () => {
     setFacultySubjects(updatedFacultySubjects);
 
     // Save the updated facultySubjects to the finalData context
-    setFinalData((prevState) => ({
+    setUserData((prevState) => ({
       ...prevState,
       facultySubjects: updatedFacultySubjects,
     }));
