@@ -6,7 +6,7 @@ import Navbar from '../Navbar/Navbar';
 
 const AdminPanel = () => {
   const { facultySubjects, setFacultySubjects } = useContext(FormContext);
-  const [faculty, setFaculty] = useState('computerEngineering');
+  const [faculty, setFaculty] = useState('Computer Engineering');
   const [semester, setSemester] = useState(1);
   const [numSubjects, setNumSubjects] = useState(0);
   const [subjects, setSubjects] = useState([]);
@@ -47,8 +47,8 @@ const AdminPanel = () => {
       <h2>Select Subject</h2>
       <label>Select Faculty:</label>
       <select value={faculty} onChange={(e) => setFaculty(e.target.value)}>
-        <option value="computerEngineering">Computer Engineering</option>
-        <option value="mechanicalEngineering">Mechanical Engineering</option>
+        <option value="Computer Engineering">Computer Engineering</option>
+        <option value="Mechanical Engineering">Mechanical Engineering</option>
         {/* Add other faculties as needed */}
       </select>
 
