@@ -8,7 +8,7 @@ import {
   Input,
 } from "@chakra-ui/react";
 import FormContext from "../Context/Form/FormContext";
-import "./Form.css";
+//import "./Form.css";
 import './globalForm.css';
 
 
@@ -43,6 +43,7 @@ const Form3 = () => {
         padding: "20px",
       }}
       className="form-part"
+
     >
       {projects.map((project, index) => (
         <Box key={index} marginBottom="20px">
@@ -53,6 +54,8 @@ const Form3 = () => {
               name="title"
               value={project.title}
               onChange={(event) => handleInputChange(index, event)}
+              _hover={{ borderColor: "blue.500", boxShadow: "xl" }} 
+
             />
           </FormControl>
           <FormControl marginTop="10px">
@@ -62,6 +65,8 @@ const Form3 = () => {
               name="description"
               value={project.description}
               onChange={(event) => handleInputChange(index, event)}
+              _hover={{ borderColor: "blue.500", boxShadow: "xl" }} 
+
             />
           </FormControl>
         </Box>

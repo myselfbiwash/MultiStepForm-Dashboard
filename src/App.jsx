@@ -5,7 +5,6 @@ import './App.css';
 import MultiStepForm from './components/Forms/MultiStepForm';
 import Dashboard from './components/Display/Dashboard';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import HomePage from './components/HomePage/HomePage';
 import AdminPanel from './components/AdminPanel/adminPanel';
 
 function App() {
@@ -16,7 +15,7 @@ function App() {
           <Router>
            
             <Routes>
-              <Route path="/" element={<HomePage />} />
+              <Route path="/" element={<MultiStepForm />} />
               <Route path="/admin" element={<AdminPanel />} />
               <Route path="/form" element={<MultiStepForm />} />
               <Route path="/dashboard" element={<Dashboard />} />

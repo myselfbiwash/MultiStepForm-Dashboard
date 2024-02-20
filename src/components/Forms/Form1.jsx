@@ -85,6 +85,8 @@ const Form1 = () => {
           colorScheme="teal"
           margin="normal"
           style={fieldStyles}
+          _hover={{ borderColor: "blue.500", boxShadow: "xl" }} 
+
         />
       </FormControl>
       <FormControl id="email" isRequired>
@@ -104,6 +106,8 @@ const Form1 = () => {
           colorScheme="teal"
           margin="normal"
           style={fieldStyles}
+          _hover={{ borderColor: "blue.500", boxShadow: "xl" }} 
+
         />
       </FormControl>
       <FormControl id="phoneNumber" isRequired>
@@ -124,6 +128,8 @@ const Form1 = () => {
           margin="normal"
           size="md"
           style={fieldStyles}
+          _hover={{ borderColor: "blue.500", boxShadow: "xl" }} 
+
         />
       </FormControl>
       <FormControl id="dob" isRequired>
@@ -139,6 +145,8 @@ const Form1 = () => {
           scrollableYearDropdown
           yearDropdownItemNumber={100}
           showIcon
+          _hover={{ borderColor: "blue.500", boxShadow: "xl" }} 
+
         />
         <Box>you are: {age}</Box>
       </FormControl>

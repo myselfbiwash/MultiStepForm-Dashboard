@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { FormControl, FormLabel, Input, Textarea } from '@chakra-ui/react';
 import FormContext from '../Context/Form/FormContext';
 import './globalForm.css';
+// import './Form.css';
 
 const Form2 = () => {
     const { userData, setUserData } = useContext(FormContext);
@@ -37,6 +38,8 @@ const Form2 = () => {
                     colorScheme="teal"
                     size="md"
                     style={fieldStyles}
+                    _hover={{ borderColor: "blue.500", boxShadow: "xl" }} 
+
                 />
             </FormControl>
             <FormControl id="city" isRequired>
@@ -49,6 +52,8 @@ const Form2 = () => {
                     colorScheme="teal"
                     margin="normal"
                     style={fieldStyles}
+                    _hover={{ borderColor: "blue.500", boxShadow: "xl" }} 
+
                 />
             </FormControl>
             <FormControl id="state" isRequired>
@@ -61,6 +66,8 @@ const Form2 = () => {
                     colorScheme="teal"
                     margin="normal"
                     style={fieldStyles}
+                    _hover={{ borderColor: "blue.500", boxShadow: "xl" }} 
+
                 />
             </FormControl>
             <FormControl id="zipCode" isRequired>
@@ -73,6 +80,8 @@ const Form2 = () => {
                     colorScheme="teal"
                     margin="normal"
                     style={fieldStyles}
+                    _hover={{ borderColor: "blue.500", boxShadow: "xl" }} 
+
                 />
             </FormControl>
         </div>

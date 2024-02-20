@@ -1,9 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./HomePage.css";
-import Dashboard from "../Display/Dashboard";
+import "./Navbar.css";
 
-const HomePage = () => {
+const Navbar = () => {
   return (
     <div>
       <nav className="nav-menu">
@@ -11,11 +10,8 @@ const HomePage = () => {
         <Link to="/form">Form</Link>
         <Link to="/dashboard">Dashboard</Link>
       </nav>
-
-       
-      <p> This is Home Page</p>
     </div>
   );
 };
 
-export default HomePage;
+export default Navbar;

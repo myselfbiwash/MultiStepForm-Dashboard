@@ -21,6 +21,7 @@ import {
   validateEmail,
   validatePhoneNumber,
 } from "../../Utils/validateFunction";
+import Navbar from "../Navbar/Navbar";
 
 const steps = [
   { title: "First", description: "Contact Info" },
@@ -145,6 +146,7 @@ const MultiStepForm = () => {
 
   return (
     <ChakraProvider>
+      <Navbar />
       <Box maxW="full" mx="auto" mt="8" p="6">
         <h3>Multi Step Form</h3>  
         <Stepper size="sm" index={activeStep} colorscheme={stepperColor}>

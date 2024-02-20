@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Dashboard.css";
+import Navbar from "../Navbar/Navbar";
 
 const Dashboard = () => {
   const [finalData, setFinalData] = useState({});
@@ -13,6 +14,7 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
+      <Navbar />
       <div className="intro">
         <div className="form1">
           <h2>Personal Information</h2>

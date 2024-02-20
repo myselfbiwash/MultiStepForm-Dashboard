@@ -1,28 +1,36 @@
-.form{
-    border: 1px solid #acb5bd;
-    box-sizing: border-box;
-    border-radius: 4px;
-    background: #ffffff;
-    font-size: 16px!important;
-    color: #495057;
-}  
+.form {
+  border: 1px solid #acb5bd;
+  box-sizing: border-box;
+  border-radius: 4px;
+  background: #ffffff;
+  font-size: 16px!important;
+  color: #495057;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.form:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
 
 Button {
-    background-color:blue;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-    width:20%;
-  }
-  
-  Button:hover {
-    background-color: #0056b3;
-  }
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  width: 20%;
+}
+
+Button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}

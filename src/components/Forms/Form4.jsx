@@ -62,6 +62,18 @@ const Form4 = () => {
     setSubjects(facultySubjects[selectedFaculty][e.target.value]);
   };
 
+  const handleFacultyChange = (e) => {
+    const newFaculty = e.target.value;
+    setSelectedFaculty(newFaculty);
+  
+    // Set the first semester of the new faculty as default
+    const firstSemester = Object.keys(facultySubjects[newFaculty])[0];
+    setSelectedSemester(firstSemester);
+  
+    // Set the subjects of the first semester of the new faculty as default
+    setSubjects(facultySubjects[newFaculty][firstSemester]);
+  };
+
   const handleSave = () => {
     // Add the marks to the facultySubjects state
     const updatedFacultySubjects = {
@@ -94,7 +106,7 @@ const Form4 = () => {
       <VStack spacing={4} align="stretch">
         <FormControl id="faculty" isRequired>
           <FormLabel>Faculty</FormLabel>
-          <Select onChange={(e) => setSelectedFaculty(e.target.value)}>
+          <Select onChange={handleFacultyChange}>
             {Object.keys(facultySubjects).map((faculty) => (
               <option key={faculty} value={faculty}>
                 {faculty}
@@ -122,6 +134,8 @@ const Form4 = () => {
             <Input
               type="number"
               onChange={(e) => handleMarksChange(subject, e.target.value)}
+              _hover={{ borderColor: "blue.500", boxShadow: "xl" }} 
+
             />
           </FormControl>
         ))}

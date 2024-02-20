@@ -2,6 +2,7 @@
 import React, { useState, useContext } from 'react';
 import FormContext from '../Context/Form/FormContext';
 import './AdminPanel.css';
+import Navbar from '../Navbar/Navbar';
 
 const AdminPanel = () => {
   const { facultySubjects, setFacultySubjects } = useContext(FormContext);
@@ -42,6 +43,7 @@ const AdminPanel = () => {
 
   return (
     <div>
+      <Navbar />
       <h2>Select Subject</h2>
       <label>Select Faculty:</label>
       <select value={faculty} onChange={(e) => setFaculty(e.target.value)}>
