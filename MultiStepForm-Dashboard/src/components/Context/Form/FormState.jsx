@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import FormContext from "./FormContext";
+import axios from 'axios';
 
 const FormState = (props) => {
   const [userData, setUserData] = useState([]);
@@ -28,7 +29,9 @@ const FormState = (props) => {
 
   const submitForm = () => {
    // setFinalData(userData);
-    axios.post('/api/user-data', userData)
+   console.log("🚀 ~ submitForm ~ userData:", userData)
+
+    axios.post('http://127.0.0.1:8000/api/user-data', userData)
     .then(response => {
       console.log("The response from the backend is:",response);
       setFinalData(userData);

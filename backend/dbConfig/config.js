@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/myapp', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb+srv://biwash10:biwash20@cluster0.m1wcyog.mongodb.net/MultistepFormData')
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => console.log(err));
