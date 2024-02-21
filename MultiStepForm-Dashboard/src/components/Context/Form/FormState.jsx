@@ -27,7 +27,15 @@ const FormState = (props) => {
   }, [facultySubjects]);
 
   const submitForm = () => {
-    setFinalData(userData);
+   // setFinalData(userData);
+    axios.post('/api/user-data', userData)
+    .then(response => {
+      console.log("The response from the backend is:",response);
+      setFinalData(userData);
+    })
+    .catch(error => {
+      console.error(error);
+    });
   };
 
   const state = { userData, setUserData, finalData, setFinalData, facultySubjects, setFacultySubjects};
