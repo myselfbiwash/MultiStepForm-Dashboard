@@ -11,14 +11,9 @@ const SubjectSchema = new Schema({
   marks: String
 });
 
-const SemesterSchema = new Schema({
-  semester: [SubjectSchema]
-});
-
 const FacultySchema = new Schema({
-  faculty: String,
-  semesters: [SemesterSchema]
-});
+  subjects: [SubjectSchema]
+}, { _id : false });
 
 const UserSchema = new Schema({
   name: String,
@@ -27,7 +22,7 @@ const UserSchema = new Schema({
   dateOfBirth: String,
   address: String,
   projects: [ProjectSchema],
-  facultySubjects: [FacultySchema]
+  facultySubjects: Schema.Types.Mixed
 });
 
 module.exports = mongoose.model('User', UserSchema);
