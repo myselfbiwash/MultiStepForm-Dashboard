@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Dashboard.css";
 import Navbar from "../Navbar/Navbar";
+import DisplayData from "./DisplayData";
 
 const Dashboard = () => {
   const [finalData, setFinalData] = useState({});
@@ -84,6 +85,7 @@ const Dashboard = () => {
     }
   )}
       </div>
+    <DisplayData />
     </div>
   );
 };

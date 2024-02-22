@@ -6,6 +6,7 @@ const FormState = (props) => {
   const [userData, setUserData] = useState([]);
   const [finalData, setFinalData] = useState([]);
   const [facultySubjects, setFacultySubjects] = useState([]);
+  const [data, setData] = useState([]);
 
   // Save data to local storage when finalData changes (i.e. when the submit button is clicked)
 
@@ -35,13 +36,15 @@ const FormState = (props) => {
     .then(response => {
       console.log("The response from the backend is:",response);
       setFinalData(userData);
+      setData(response.data);
+    
     })
     .catch(error => {
       console.error(error);
     });
   };
 
-  const state = { userData, setUserData, finalData, setFinalData, facultySubjects, setFacultySubjects};
+  const state = { userData, setUserData, finalData, setFinalData, facultySubjects, setFacultySubjects,data,setData};
   console.log(userData);
 
   return (
