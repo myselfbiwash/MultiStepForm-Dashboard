@@ -15,6 +15,11 @@ const FormState = (props) => {
     localStorage.setItem("finalData", JSON.stringify(finalData));
   }, [finalData]);
 
+  useEffect(() => {
+    if (data.length === 0) return;
+    localStorage.setItem("data", JSON.stringify(data));
+  }, [data]);
+
   // Retrieve data from local storage when component mounts. It is helpful for page refresh but can be removed if not needed.
   useEffect(() => {
     const storedData = localStorage.getItem("finalData");
@@ -37,6 +42,8 @@ const FormState = (props) => {
       console.log("The response from the backend is:",response);
       setFinalData(userData);
       setData(response.data);
+      console.log("🚀 ~ submitForm ~ response.data:", response.data)
+
     
     })
     .catch(error => {

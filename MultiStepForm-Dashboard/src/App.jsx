@@ -6,6 +6,7 @@ import MultiStepForm from './components/Forms/MultiStepForm';
 import Dashboard from './components/Display/Dashboard';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AdminPanel from './components/AdminPanel/adminPanel';
+import DisplayData from './components/Display/DisplayData';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
               <Route path="/admin" element={<AdminPanel />} />
               <Route path="/form" element={<MultiStepForm />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/display" element={<DisplayData />} />
             </Routes>
           </Router>
         </div>
