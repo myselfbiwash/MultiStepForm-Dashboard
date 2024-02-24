@@ -1,5 +1,5 @@
 // AdminPanel.jsx
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import FormContext from '../Context/Form/FormContext';
 import './AdminPanel.css';
 import Navbar from '../Navbar/Navbar';
@@ -12,7 +12,14 @@ const AdminPanel = () => {
   const [subjects, setSubjects] = useState([]);
   const [isSaved, setIsSaved] = useState(false);
 
-
+  useEffect(() => {
+    if (facultySubjects[faculty] && facultySubjects[faculty][semester]) {
+      setSubjects(facultySubjects[faculty][semester]);
+    } else {
+      setSubjects([]);
+    }
+  }, [faculty, semester, facultySubjects]);
+  
   const handleNumSubjectsChange = (e) => {
     const num = parseInt(e.target.value, 10);
     if (!isNaN(num) && num >= 0) {
@@ -40,6 +47,12 @@ const AdminPanel = () => {
       updatedFacultySubjects[faculty][semester] = subjects;
     }
   
+//  // Merge the new subjects with the existing ones
+//  updatedFacultySubjects[faculty][semester] = [
+//   ...updatedFacultySubjects[faculty][semester],
+//   ...subjects
+// ];
+
     setFacultySubjects(updatedFacultySubjects);
     setIsSaved(true);
 
