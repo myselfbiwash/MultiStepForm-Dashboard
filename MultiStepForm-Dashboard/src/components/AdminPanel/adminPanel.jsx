@@ -10,6 +10,8 @@ const AdminPanel = () => {
   const [semester, setSemester] = useState(1);
   const [numSubjects, setNumSubjects] = useState(0);
   const [subjects, setSubjects] = useState([]);
+  const [isSaved, setIsSaved] = useState(false);
+
 
   const handleNumSubjectsChange = (e) => {
     const num = parseInt(e.target.value, 10);
@@ -39,6 +41,14 @@ const AdminPanel = () => {
     }
   
     setFacultySubjects(updatedFacultySubjects);
+    setIsSaved(true);
+
+    // Set isSaved back to false after 5 seconds
+    setTimeout(() => {
+      setIsSaved(false);
+    }, 5000);
+    setNumSubjects(0);
+    setSubjects([]);
   };
 
   return (
@@ -84,6 +94,7 @@ const AdminPanel = () => {
           </div>
         ))}
         <button onClick={handleSaveSubjects} style={{background:'blue'}}>Save Subjects</button>
+        {isSaved && <p style={{color:'green'}}>Subjects saved successfully for semester {semester}  of {faculty} faculty</p>}
       </div>
     </div>
   );
